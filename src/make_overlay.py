@@ -48,7 +48,7 @@ CLASS_NAMES = [
 ]
 
 
-def make_overlay(orig_path, mask_path, seg_path, out_dir):
+def make_overlay(orig_path, mask_path, seg_path, out_dir, modality="T1w"):
     os.makedirs(out_dir, exist_ok=True)
 
     orig = nib.load(orig_path)
@@ -107,8 +107,8 @@ def make_overlay(orig_path, mask_path, seg_path, out_dir):
         ax.set_title(f"Sagittal x={s}/{W}", fontsize=10)
         ax.axis("off")
 
-    plt.suptitle("MacaBrainNet Tissue Segmentation", fontsize=14, y=0.98)
-    overlay_path = os.path.join(out_dir, "tissue_overlay_grid.png")
+    plt.suptitle(f"MacaBrainNet Tissue Segmentation ({modality})", fontsize=14, y=0.98)
+    overlay_path = os.path.join(out_dir, f"tissue_overlay_{modality}.png")
     plt.savefig(overlay_path, dpi=150, bbox_inches="tight",
                 facecolor="white", edgecolor="none")
     plt.close()
@@ -153,8 +153,8 @@ def make_overlay(orig_path, mask_path, seg_path, out_dir):
                   origin="lower", aspect="auto", alpha=0.5, interpolation="nearest")
         ax.set_title(f"Axial z={s}/{D}", fontsize=10)
         ax.axis("off")
-    plt.suptitle("Skull Stripping (Brain Mask)", fontsize=14, y=0.98)
-    mask_path_out = os.path.join(out_dir, "brain_mask_overlay.png")
+    plt.suptitle(f"Skull Stripping — Brain Mask ({modality})", fontsize=14, y=0.98)
+    mask_path_out = os.path.join(out_dir, f"brain_mask_overlay_{modality}.png")
     plt.savefig(mask_path_out, dpi=150, bbox_inches="tight",
                 facecolor="white", edgecolor="none")
     plt.close()
@@ -166,12 +166,25 @@ def make_overlay(orig_path, mask_path, seg_path, out_dir):
 if __name__ == "__main__":
     base = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(base)
+    out = os.path.join(project_root, "example_output")
 
-    make_overlay(
-        orig_path=os.path.join(base, "example", "sub-01_T1w.nii.gz"),
-        mask_path=os.path.join(project_root, "example_output",
-                               "sub-01_T1w_brain_mask.nii.gz"),
-        seg_path=os.path.join(project_root, "example_output",
-                              "sub-01_T1w_tissue_seg.nii.gz"),
-        out_dir=base,
-    )
+    tasks = [
+        ("sub-01_T1w.nii.gz",
+         "sub-01_T1w_brain_mask.nii.gz",
+         "sub-01_T1w_tissue_seg.nii.gz", "T1w"),
+        ("sub-032144_ses-001_run-1_T2w.nii.gz",
+         "sub-032144_ses-001_run-1_T2w_brain_mask.nii.gz",
+         "sub-032144_ses-001_run-1_T2w_tissue_seg.nii.gz", "T2w"),
+        ("sub-T112927_ses-20190630T203844_FLAIR.nii.gz",
+         "sub-T112927_ses-20190630T203844_FLAIR_brain_mask.nii.gz",
+         "sub-T112927_ses-20190630T203844_FLAIR_tissue_seg.nii.gz", "FLAIR"),
+    ]
+
+    for img, mask, seg, modality in tasks:
+        make_overlay(
+            orig_path=os.path.join(base, "example", img),
+            mask_path=os.path.join(out, mask),
+            seg_path=os.path.join(out, seg),
+            out_dir=base,
+            modality=modality,
+        )

@@ -27,15 +27,26 @@ The segmentation model is based on **SwinUNETR-B**, a hybrid architecture combin
 
 ## Example Results
 
-![Tissue Segmentation Overlay](src/tissue_overlay_grid.png)
+MacaBrainNet supports multi-modal inputs (T1w, T2w, FLAIR) with a unified model.
 
-*Multi-class tissue segmentation overlaid on original T1w MRI (axial, coronal, sagittal views). Each color represents a distinct anatomical label.*
+### T1w
 
-![Brain Mask Overlay](src/brain_mask_overlay.png)
+![Tissue T1w](src/tissue_overlay_T1w.png)
+![Mask T1w](src/brain_mask_overlay_T1w.png)
 
-*Skull stripping result: brain mask boundary (red) overlaid on original T1w. The brain mask is derived from the union of all predicted tissue labels.*
+### T2w
 
-![Label Legend](src/tissue_legend.png)
+![Tissue T2w](src/tissue_overlay_T2w.png)
+![Mask T2w](src/brain_mask_overlay_T2w.png)
+
+### FLAIR
+
+![Tissue FLAIR](src/tissue_overlay_FLAIR.png)
+![Mask FLAIR](src/brain_mask_overlay_FLAIR.png)
+
+### Label Legend
+
+![Legend](src/tissue_legend.png)
 
 ## Requirements
 
@@ -281,12 +292,12 @@ macaBrainNet_v2/
 ├── pipeline.py                # End-to-end pipeline
 ├── download_from_hf.py        # Download models from HuggingFace
 ├── src/
-│   ├── example/               # Example MRI data
+│   ├── example/               # Example MRI data (T1w, T2w, FLAIR)
 │   ├── run_example.sh         # Example pipeline run
 │   ├── make_overlay.py        # Generate overlay visualizations
-│   ├── tissue_overlay_grid.png    # Example: tissue seg overlay
-│   ├── brain_mask_overlay.png    # Example: brain mask overlay
-│   └── tissue_legend.png         # Tissue class color legend
+│   ├── tissue_overlay_*.png   # Example: tissue seg overlays
+│   ├── brain_mask_overlay_*.png  # Example: brain mask overlays
+│   └── tissue_legend.png      # Tissue class color legend
 └── README.md
 ```
 
