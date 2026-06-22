@@ -20,31 +20,31 @@ CLASS_COLORS = [
     (1.0,   0.9,   0.3),    # 1: Cerebral WM
     (0.4,   0.8,   0.4),    # 2: Cerebral Cortex
     (0.2,   0.5,   1.0),    # 3: Lateral Ventricle
-    (0.3,   0.7,   0.9),    # 4: Inf-Lat-Vent
-    (0.9,   0.7,   0.2),    # 5: Cerebellum WM
-    (0.5,   1.0,   0.5),    # 6: Cerebellum Cortex
-    (1.0,   0.7,   0.4),    # 7: Thalamus Proper
-    (1.0,   0.3,   0.3),    # 8: Caudate
-    (1.0,   0.5,   0.5),    # 9: Putamen
-    (0.8,   0.4,   0.4),    # 10: Pallidum
+    (0.9,   0.7,   0.2),    # 4: Cerebellum WM
+    (0.5,   1.0,   0.5),    # 5: Cerebellum Cortex
+    (1.0,   0.7,   0.4),    # 6: Thalamus Proper
+    (1.0,   0.3,   0.3),    # 7: Caudate
+    (1.0,   0.5,   0.5),    # 8: Putamen
+    (0.8,   0.4,   0.4),    # 9: Pallidum
+    (0.6,   0.5,   0.4),    # 10: Brain Stem
     (0.3,   0.8,   0.8),    # 11: Hippocampus
     (1.0,   0.5,   0.8),    # 12: Amygdala
     (0.2,   0.9,   1.0),    # 13: CSF
     (0.9,   0.3,   0.5),    # 14: Accumbens Area
     (0.4,   0.4,   0.4),    # 15: Substantia Nigra
     (0.5,   0.5,   0.9),    # 16: Ventral DC
-    (0.7,   0.9,   0.4),    # 17: Choroid Plexus
-    (0.6,   0.4,   0.8),    # 18: Claustrum
+    (0.6,   0.4,   0.8),    # 17: Claustrum
+    (0.3,   0.3,   0.3),    # 18: Cornea
 ]
 
 CLASS_NAMES = [
     "Background",
     "Cerebral WM", "Cerebral Cortex", "Lateral Ventricle",
-    "Inf-Lat-Vent", "Cerebellum WM", "Cerebellum Cortex",
+    "Cerebellum WM", "Cerebellum Cortex",
     "Thalamus Proper", "Caudate", "Putamen", "Pallidum",
-    "Hippocampus", "Amygdala", "CSF",
+    "Brain Stem", "Hippocampus", "Amygdala", "CSF",
     "Accumbens Area", "Substantia Nigra", "Ventral DC",
-    "Choroid Plexus", "Claustrum",
+    "Claustrum", "Cornea",
 ]
 
 

@@ -199,57 +199,33 @@ python predict_ensemble.py \
 
 ## Tissue Labels
 
-The model outputs 19 contiguous classes (0 = background, 1–18 = tissue labels). Labels are derived from FreeSurfer-style anatomical IDs after hemisphere collapsing (left/right merged) and sorted-order remapping to contiguous indices.
+The model outputs 19 contiguous classes (0 = background, 1–18 = tissue labels). Labels are derived from FreeSurfer-style anatomical IDs after hemisphere collapsing (left/right merged) and remapped to contiguous 0..18.
 
-### Hemi-Collapse Mapping
+### Model Output → FreeSurfer ID Mapping
 
-Right-hemisphere structures are merged into their left-hemisphere equivalents before contiguous remapping:
-
-| Original Right ID | Collapsed To | Structure |
-|---|---|---|
-| 41 | 2 | Cerebral White Matter |
-| 42 | 3 | Cerebral Cortex |
-| 43 | 4 | Lateral Ventricle |
-| 44 | 5 | Inferior Lateral Ventricle |
-| 46 | 7 | Cerebellum White Matter |
-| 47 | 8 | Cerebellum Cortex |
-| 49 | 10 | Thalamus Proper |
-| 50 | 11 | Caudate |
-| 51 | 12 | Putamen |
-| 52 | 13 | Pallidum |
-| 53 | 17 | Hippocampus |
-| 54 | 18 | Amygdala |
-| 58 | 26 | Accumbens Area |
-| 59 | 27 | Substantia Nigra |
-| 60 | 28 | Ventral Diencephalon |
-| 63 | 31 | Choroid Plexus |
-| 139 | 138 | Claustrum |
-
-### Contiguous Label IDs (Model Output)
-
-After sorting the collapsed IDs and mapping to contiguous 0..18:
-
-| Contig ID | Original ID | Structure |
+| Model ID | FS ID | Structure |
 |---|---|---|
 | 0 | — | Background |
-| 1 | 2 | Cerebral White Matter |
-| 2 | 3 | Cerebral Cortex |
-| 3 | 4 | Lateral Ventricle |
-| 4 | 5 | Inferior Lateral Ventricle |
-| 5 | 7 | Cerebellum White Matter |
-| 6 | 8 | Cerebellum Cortex |
-| 7 | 10 | Thalamus Proper |
-| 8 | 11 | Caudate |
-| 9 | 12 | Putamen |
-| 10 | 13 | Pallidum |
-| 11 | 17 | Hippocampus |
-| 12 | 18 | Amygdala |
+| 1 | 2 | Cerebral White Matter (Left) |
+| 2 | 3 | Cerebral Cortex (Left) |
+| 3 | 4 | Lateral Ventricle (Left) |
+| 4 | 7 | Cerebellum White Matter (Left) |
+| 5 | 8 | Cerebellum Cortex (Left) |
+| 6 | 10 | Thalamus Proper (Left) |
+| 7 | 11 | Caudate (Left) |
+| 8 | 12 | Putamen (Left) |
+| 9 | 13 | Pallidum (Left) |
+| 10 | 16 | Brain Stem |
+| 11 | 17 | Hippocampus (Left) |
+| 12 | 18 | Amygdala (Left) |
 | 13 | 24 | CSF |
-| 14 | 26 | Accumbens Area |
-| 15 | 27 | Substantia Nigra |
-| 16 | 28 | Ventral Diencephalon |
-| 17 | 31 | Choroid Plexus |
-| 18 | 138 | Claustrum |
+| 14 | 26 | Accumbens Area (Left) |
+| 15 | 27 | Substantia Nigra (Left) |
+| 16 | 28 | Ventral Diencephalon (Left) |
+| 17 | 138 | Claustrum (Left) |
+| 18 | 140 | Cornea |
+
+> **Hemisphere collapse**: Right-hemisphere labels (41→2, 42→3, 43→4, 46→7, 47→8, 49→10, 50→11, 51→12, 52→13, 53→17, 54→18, 58→26, 59→27, 60→28, 139→138) are merged into their left-hemisphere equivalents before contiguous remapping. Midline structures (Brain Stem, CSF, Cornea) need no collapse.
 
 ## Training
 
