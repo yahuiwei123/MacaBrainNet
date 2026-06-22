@@ -119,14 +119,14 @@ def remap_to_original_space(cropped_seg_path, original_img_path, crop_start, out
     cropped_seg = nib.load(cropped_seg_path)
     orig_img = nib.load(original_img_path)
 
-    cropped_data = np.asarray(cropped_seg.dataobj, dtype=np.uint8)
+    cropped_data = np.asarray(cropped_seg.dataobj, dtype=np.uint16)
     orig_shape = orig_img.shape
 
     d0, h0, w0 = crop_start
     cd, ch, cw = cropped_data.shape
 
     # Place cropped segmentation back into full-size zero volume
-    full_seg = np.zeros(orig_shape, dtype=np.uint8)
+    full_seg = np.zeros(orig_shape, dtype=np.uint16)
     full_seg[d0:d0 + cd, h0:h0 + ch, w0:w0 + cw] = cropped_data
 
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
@@ -143,6 +143,7 @@ def run_pipeline(img_path, out_dir,
                  patch_size=(96, 96, 96),
                  overlap=0.60,
                  padding=16,
+                 remap_freesurfer=False,
                  device=None):
     """
     Run the full skull-strip → crop → tissue-seg pipeline.
@@ -225,6 +226,7 @@ def run_pipeline(img_path, out_dir,
         overlap=overlap,
         num_classes=19,
         do_clean=True,
+        remap_freesurfer=remap_freesurfer,
         device=device,
     )
 
@@ -274,6 +276,8 @@ if __name__ == "__main__":
     parser.add_argument("--padding", type=int, default=16,
                         help="Voxels to pad outward from brain bbox (default: 16)")
     parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--freesurfer", action="store_true",
+                        help="Remap tissue segmentation labels to FreeSurfer IDs")
 
     args = parser.parse_args()
 
@@ -289,5 +293,6 @@ if __name__ == "__main__":
         patch_size=tuple(args.patch_size),
         overlap=args.overlap,
         padding=args.padding,
+        remap_freesurfer=args.freesurfer,
         device=device,
     )

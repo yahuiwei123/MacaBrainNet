@@ -23,6 +23,7 @@ from data.transforms import (
 )
 from predict import (
     load_model, preprocess, postprocess, clean_mask,
+    contig_to_freesurfer,
 )
 
 
@@ -46,6 +47,7 @@ def predict_ensemble(img_path: str, out_path: str, ckpt_dir: str,
                      overlap: float = 0.60,
                      num_classes: int = 2,
                      do_clean: bool = True,
+                     remap_freesurfer: bool = False,
                      device: torch.device = None):
     """Run ensemble prediction across all fold models."""
     if device is None:
@@ -113,6 +115,11 @@ def predict_ensemble(img_path: str, out_path: str, ckpt_dir: str,
         print("Cleaning mask (largest CC + fill holes)...")
         pred_np = clean_mask(pred_np, num_classes)
 
+    # Remap to FreeSurfer label IDs (only meaningful for tissue segmentation)
+    if remap_freesurfer and num_classes > 2:
+        print("Remapping labels to FreeSurfer IDs...")
+        pred_np = contig_to_freesurfer(pred_np)
+
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     nib.save(nib.Nifti1Image(pred_np, save_affine), out_path)
     print(f"Saved: {out_path}")
@@ -134,6 +141,8 @@ if __name__ == "__main__":
     parser.add_argument("--device", type=str, default="cuda")
     parser.add_argument("--no-clean", action="store_true",
                         help="Skip mask cleaning")
+    parser.add_argument("--freesurfer", action="store_true",
+                        help="Remap contiguous labels (0..18) to FreeSurfer label IDs")
     args = parser.parse_args()
 
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
@@ -147,5 +156,6 @@ if __name__ == "__main__":
         overlap=args.overlap,
         num_classes=args.num_classes,
         do_clean=not args.no_clean,
+        remap_freesurfer=args.freesurfer,
         device=device,
     )
