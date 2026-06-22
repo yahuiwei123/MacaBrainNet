@@ -17,32 +17,34 @@ from data.transforms import load_nifti, ensure_channel_first, reorient_to_ras
 # 19-class colormap (class 0=background transparent, 1-18 colored)
 CLASS_COLORS = [
     (0.0,   0.0,   0.0),    # 0: background
-    (1.0,   0.8,   0.2),    # 1: WM
-    (0.4,   0.8,   0.4),    # 2: cortex
-    (0.2,   0.6,   1.0),    # 3: LV
-    (0.8,   0.6,   0.2),    # 4: cerebellum WM
-    (0.4,   1.0,   0.4),    # 5: cerebellum cortex
-    (0.2,   0.4,   1.0),    # 6: 3rd ventricle
-    (0.2,   0.3,   0.9),    # 7: 4th ventricle
-    (1.0,   0.4,   0.4),    # 8: putamen
-    (0.9,   0.3,   0.6),    # 9: accumbens
-    (1.0,   0.5,   0.0),    # 10: caudate
-    (0.8,   0.5,   0.5),    # 11: GP
-    (1.0,   0.7,   0.3),    # 12: thalamus
-    (0.3,   0.7,   0.7),    # 13: hippocampus
-    (0.9,   0.6,   0.8),    # 14: amygdala
-    (0.5,   0.5,   0.5),    # 15: brainstem
-    (0.7,   0.7,   1.0),    # 16: corpus callosum
-    (0.6,   1.0,   0.6),    # 17: optic chiasm
-    (0.5,   0.4,   0.8),    # 18: pineal
+    (1.0,   0.9,   0.3),    # 1: Cerebral WM
+    (0.4,   0.8,   0.4),    # 2: Cerebral Cortex
+    (0.2,   0.5,   1.0),    # 3: Lateral Ventricle
+    (0.3,   0.7,   0.9),    # 4: Inf-Lat-Vent
+    (0.9,   0.7,   0.2),    # 5: Cerebellum WM
+    (0.5,   1.0,   0.5),    # 6: Cerebellum Cortex
+    (1.0,   0.7,   0.4),    # 7: Thalamus Proper
+    (1.0,   0.3,   0.3),    # 8: Caudate
+    (1.0,   0.5,   0.5),    # 9: Putamen
+    (0.8,   0.4,   0.4),    # 10: Pallidum
+    (0.3,   0.8,   0.8),    # 11: Hippocampus
+    (1.0,   0.5,   0.8),    # 12: Amygdala
+    (0.2,   0.9,   1.0),    # 13: CSF
+    (0.9,   0.3,   0.5),    # 14: Accumbens Area
+    (0.4,   0.4,   0.4),    # 15: Substantia Nigra
+    (0.5,   0.5,   0.9),    # 16: Ventral DC
+    (0.7,   0.9,   0.4),    # 17: Choroid Plexus
+    (0.6,   0.4,   0.8),    # 18: Claustrum
 ]
 
 CLASS_NAMES = [
-    "Background", "WM", "Cortex", "LV",
-    "Cerebellum WM", "Cerebellum Cortex", "3rd Ventricle", "4th Ventricle",
-    "Putamen", "Accumbens", "Caudate", "GP",
-    "Thalamus", "Hippocampus", "Amygdala", "Brainstem",
-    "Corpus Callosum", "Optic Chiasm", "Pineal",
+    "Background",
+    "Cerebral WM", "Cerebral Cortex", "Lateral Ventricle",
+    "Inf-Lat-Vent", "Cerebellum WM", "Cerebellum Cortex",
+    "Thalamus Proper", "Caudate", "Putamen", "Pallidum",
+    "Hippocampus", "Amygdala", "CSF",
+    "Accumbens Area", "Substantia Nigra", "Ventral DC",
+    "Choroid Plexus", "Claustrum",
 ]
 
 

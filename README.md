@@ -188,20 +188,57 @@ python predict_ensemble.py \
 
 ## Tissue Labels
 
-The tissue segmentation model outputs 19 classes (0 = background):
+The model outputs 19 contiguous classes (0 = background, 1–18 = tissue labels). Labels are derived from FreeSurfer-style anatomical IDs after hemisphere collapsing (left/right merged) and sorted-order remapping to contiguous indices.
 
-| ID | Tissue | ID | Tissue |
-|---|---|---|---|
-| 0 | Background | 10 | Caudate |
-| 1 | White Matter (WM) | 11 | Globus Pallidus |
-| 2 | Cortex | 12 | Thalamus |
-| 3 | Lateral Ventricle (LV) | 13 | Hippocampus |
-| 4 | Cerebellum WM | 14 | Amygdala |
-| 5 | Cerebellum Cortex | 15 | Brainstem |
-| 6 | 3rd Ventricle | 16 | Corpus Callosum |
-| 7 | 4th Ventricle | 17 | Optic Chiasm |
-| 8 | Putamen | 18 | Pineal Gland |
-| 9 | Accumbens | | |
+### Hemi-Collapse Mapping
+
+Right-hemisphere structures are merged into their left-hemisphere equivalents before contiguous remapping:
+
+| Original Right ID | Collapsed To | Structure |
+|---|---|---|
+| 41 | 2 | Cerebral White Matter |
+| 42 | 3 | Cerebral Cortex |
+| 43 | 4 | Lateral Ventricle |
+| 44 | 5 | Inferior Lateral Ventricle |
+| 46 | 7 | Cerebellum White Matter |
+| 47 | 8 | Cerebellum Cortex |
+| 49 | 10 | Thalamus Proper |
+| 50 | 11 | Caudate |
+| 51 | 12 | Putamen |
+| 52 | 13 | Pallidum |
+| 53 | 17 | Hippocampus |
+| 54 | 18 | Amygdala |
+| 58 | 26 | Accumbens Area |
+| 59 | 27 | Substantia Nigra |
+| 60 | 28 | Ventral Diencephalon |
+| 63 | 31 | Choroid Plexus |
+| 139 | 138 | Claustrum |
+
+### Contiguous Label IDs (Model Output)
+
+After sorting the collapsed IDs and mapping to contiguous 0..18:
+
+| Contig ID | Original ID | Structure |
+|---|---|---|
+| 0 | — | Background |
+| 1 | 2 | Cerebral White Matter |
+| 2 | 3 | Cerebral Cortex |
+| 3 | 4 | Lateral Ventricle |
+| 4 | 5 | Inferior Lateral Ventricle |
+| 5 | 7 | Cerebellum White Matter |
+| 6 | 8 | Cerebellum Cortex |
+| 7 | 10 | Thalamus Proper |
+| 8 | 11 | Caudate |
+| 9 | 12 | Putamen |
+| 10 | 13 | Pallidum |
+| 11 | 17 | Hippocampus |
+| 12 | 18 | Amygdala |
+| 13 | 24 | CSF |
+| 14 | 26 | Accumbens Area |
+| 15 | 27 | Substantia Nigra |
+| 16 | 28 | Ventral Diencephalon |
+| 17 | 31 | Choroid Plexus |
+| 18 | 138 | Claustrum |
 
 ## Training
 
