@@ -1,0 +1,22 @@
+# Model checkpoints (large binary files, stored on HuggingFace instead)
+swinunetr_models/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Training logs
+logs/
+debug_slices/
+
+# Output
+example_output/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
