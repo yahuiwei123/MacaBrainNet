@@ -175,9 +175,9 @@ if __name__ == "__main__":
         ("sub-032144_ses-001_run-1_T2w.nii.gz",
          "sub-032144_ses-001_run-1_T2w_brain_mask.nii.gz",
          "sub-032144_ses-001_run-1_T2w_tissue_seg.nii.gz", "T2w"),
-        ("sub-T112927_ses-20190630T203844_FLAIR.nii.gz",
-         "sub-T112927_ses-20190630T203844_FLAIR_brain_mask.nii.gz",
-         "sub-T112927_ses-20190630T203844_FLAIR_tissue_seg.nii.gz", "FLAIR"),
+        ("T2_FLAIR.nii.gz",
+         "T2_FLAIR_brain_mask.nii.gz",
+         "T2_FLAIR_tissue_seg.nii.gz", "FLAIR"),
     ]
 
     for img, mask, seg, modality in tasks:
