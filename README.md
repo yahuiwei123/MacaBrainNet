@@ -1,8 +1,41 @@
 # MacaBrainNet v2
 
-Monkey brain MRI segmentation pipeline: **skull stripping → tissue segmentation**.
+Monkey brain MRI segmentation via a unified multi-class tissue segmentation strategy.
 
-Built with SwinUNETR (MONAI backend), PyTorch DDP training, and ensemble inference across 5-fold cross-validation models.
+Accurate isolation and classification of brain tissues are critical for cortical surface reconstruction. MacaBrainNet employs a unified multi-class tissue segmentation approach in which brain extraction is implicitly defined by the union of predicted anatomical labels. The model jointly segments cortical gray matter, white matter, cerebrospinal fluid, cerebellum, brainstem, and multiple subcortical structures, generating both a high-fidelity brain mask and anatomically informative labels for downstream analyses.
+
+## Training Data & Strategy
+
+To address the scarcity of annotated macaque MRI data, tissue segmentation labels were developed using an **iterative, pipeline-preserving bootstrapping strategy**. The downstream reconstruction workflow (bias-field correction, volumetric registration, surface initialization, and surface refinement) was kept fixed while only the segmentation component was iteratively improved. Initial labels were obtained by combining deep learning-based cortical tissue segmentation with atlas-informed subcortical labeling after volumetric registration. Cases with suboptimal masks or tissue labels were manually corrected and reprocessed, yielding a curated set of anatomically consistent, surface-informed labels for model training.
+
+Using this strategy, we assembled a **training set of 2,157 macaque MRI scans from 39 acquisition centers**.
+
+## Architecture
+
+The segmentation model is based on **SwinUNETR-B**, a hybrid architecture combining Swin Transformer encoders with CNN decoders, initialized with self-supervised pretraining and fine-tuned for 18-class tissue segmentation (19 including background). Inference uses sliding-window softmax averaging across 5-fold cross-validation ensembles for robust prediction.
+
+| Component | Detail |
+|---|---|
+| Architecture | SwinUNETR v2, `feature_size=48`, `patch_size=(2,2,2)` |
+| Encoder | 4 stages: depths=[2,2,2,2], heads=[3,6,12,24] |
+| Decoder | Deep supervision: 5 output heads |
+| Pretraining | LocalGlobal self-supervised (17,000 steps) |
+| Skull stripping | DiceFocalLoss, 0.5 mm isotropic, patch 96³ |
+| Tissue segmentation | Weighted DiceFocalLoss, 0.4 mm isotropic, patch 96³, 19 classes |
+| Ensemble | Softmax averaging across 5-fold cross-validation |
+| Training data | 2,157 macaque MRI scans from 39 centers |
+
+## Example Results
+
+![Tissue Segmentation Overlay](src/tissue_overlay_grid.png)
+
+*Multi-class tissue segmentation overlaid on original T1w MRI (axial, coronal, sagittal views). Each color represents a distinct anatomical label.*
+
+![Brain Mask Overlay](src/brain_mask_overlay.png)
+
+*Skull stripping result: brain mask boundary (red) overlaid on original T1w. The brain mask is derived from the union of all predicted tissue labels.*
+
+![Label Legend](src/tissue_legend.png)
 
 ## Requirements
 
@@ -16,7 +49,7 @@ Built with SwinUNETR (MONAI backend), PyTorch DDP training, and ensemble inferen
 
 ```bash
 # Clone the repository
-git clone <repo-url> macaBrainNet_v2
+git clone https://github.com/yahuiwei123/MacaBrainNet.git
 cd macaBrainNet_v2
 
 # Install dependencies
@@ -191,23 +224,6 @@ FOLD=1                           \
 bash train_skullstrip.sh
 ```
 
-## Model Card
-
-- **Architecture**: SwinUNETR v2 (MONAI)
-  - `feature_size=48`, `patch_size=(2,2,2)`
-  - 4 encoder stages: depths=[2,2,2,2], heads=[3,6,12,24]
-  - Deep supervision: 5 output heads
-- **Pretrained weights**: LocalGlobal (self-supervised, 17000 steps)
-- **Skull stripping**: DiceFocalLoss, 0.5mm, patch 96³
-- **Tissue segmentation**: Weighted DiceFocalLoss, 0.4mm, patch 96³
-- **Ensemble**: Softmax averaging across 5 folds
-
-## Upload Models to HuggingFace
-
-```bash
-python upload_to_hf.py
-```
-
 ## Project Structure
 
 ```
@@ -226,9 +242,15 @@ macaBrainNet_v2/
 ├── predict.py                 # Single-checkpoint inference
 ├── predict_ensemble.py        # Ensemble inference (5-fold)
 ├── pipeline.py                # End-to-end pipeline
-├── upload_to_hf.py            # Upload models to HuggingFace
 ├── download_from_hf.py        # Download models from HuggingFace
-├── swinunetr_models/          # Model checkpoints
-├── src/example/               # Example data
-└── src/run_example.sh         # Example pipeline run
+├── src/
+│   ├── example/               # Example MRI data
+│   ├── run_example.sh         # Example pipeline run
+│   ├── make_overlay.py        # Generate overlay visualizations
+│   ├── tissue_overlay_grid.png    # Example: tissue seg overlay
+│   ├── brain_mask_overlay.png    # Example: brain mask overlay
+│   └── tissue_legend.png         # Tissue class color legend
+└── README.md
 ```
+
+Model checkpoints are stored on HuggingFace Hub (yhwei/MacaBrainNet) and downloaded via `download_from_hf.py`.
