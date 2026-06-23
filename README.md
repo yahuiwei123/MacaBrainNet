@@ -278,3 +278,9 @@ macaBrainNet_v2/
 ```
 
 Model checkpoints are stored on HuggingFace Hub (yhwei/MacaBrainNet) and downloaded via `download_from_hf.py`.
+
+## Citation
+
+If you use this toolkit or the pretrained models, please cite:
+
+> Wei, Y. et al. MacaSurfer: unified surface-volume mapping of the macaque brain across the lifespan. 2026.06.14.732101 Preprint at https://doi.org/10.64898/2026.06.14.732101 (2026).
