@@ -269,24 +269,24 @@ All OOD scans were preprocessed identically (RAS reorientation, 0.4 mm isotropic
 
 | Structure | Dice | HD95 (mm) |
 |---|---|---|
-| Hippocampus (L) | 0.932 | 0.58 |
-| Cerebral Cortex (L) | 0.929 | 0.40 |
-| Cerebral WM (L) | 0.922 | 0.41 |
-| Putamen (L) | 0.917 | 0.52 |
-| Thalamus Proper (L) | 0.915 | 0.57 |
-| Accumbens Area (L) | 0.906 | 0.55 |
-| Pallidum (L) | 0.889 | 0.54 |
-| Caudate (L) | 0.886 | 0.56 |
-| Amygdala (L) | 0.879 | 0.62 |
-| Substantia Nigra (L) | 0.870 | 0.48 |
+| Hippocampus | 0.932 | 0.58 |
+| Cerebral Cortex | 0.929 | 0.40 |
+| Cerebral WM | 0.922 | 0.41 |
+| Putamen | 0.917 | 0.52 |
+| Thalamus Proper | 0.915 | 0.57 |
+| Accumbens Area | 0.906 | 0.55 |
+| Pallidum | 0.889 | 0.54 |
+| Caudate | 0.886 | 0.56 |
+| Amygdala | 0.879 | 0.62 |
+| Substantia Nigra | 0.870 | 0.48 |
 | Brain Stem | 0.863 | 0.51 |
 | CSF | 0.849 | 0.54 |
 | Cornea | 0.845 | 0.54 |
-| Cerebellum Cortex (L) | 0.822 | 0.80 |
-| Ventral Diencephalon (L) | 0.792 | 0.62 |
-| Claustrum (L) | 0.785 | 0.50 |
-| Cerebellum WM (L) | 0.761 | 1.25 |
-| Lateral Ventricle (L) | 0.755 | 0.60 |
+| Cerebellum Cortex | 0.822 | 0.80 |
+| Ventral Diencephalon | 0.792 | 0.62 |
+| Claustrum | 0.785 | 0.50 |
+| Cerebellum WM | 0.761 | 1.25 |
+| Lateral Ventricle | 0.755 | 0.60 |
 
 Cortical gray/white matter and large subcortical structures achieve Dice > 0.90. Performance is lower for small or thin structures such as Lateral Ventricle, Cerebellum WM, Claustrum, and Ventral Diencephalon, consistent with their anatomical complexity and partial volume effects.
 

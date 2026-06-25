@@ -54,13 +54,13 @@ y_pos = np.arange(n)
 
 # ── Anatomical groupings (color coding) ──
 group_def = {
-    "Cortical":          ["Cerebral WM (L)", "Cerebral Cortex (L)"],
-    "Subcortical":       ["Thalamus Proper (L)", "Caudate (L)", "Putamen (L)",
-                          "Pallidum (L)", "Hippocampus (L)", "Amygdala (L)",
-                          "Accumbens Area (L)", "Substantia Nigra (L)",
-                          "Ventral Diencephalon (L)", "Claustrum (L)"],
-    "Cerebellum":        ["Cerebellum WM (L)", "Cerebellum Cortex (L)"],
-    "Brainstem / Other": ["Brain Stem", "Lateral Ventricle (L)", "CSF", "Cornea"],
+    "Cortical":          ["Cerebral WM", "Cerebral Cortex"],
+    "Subcortical":       ["Thalamus Proper", "Caudate", "Putamen",
+                          "Pallidum", "Hippocampus", "Amygdala",
+                          "Accumbens Area", "Substantia Nigra",
+                          "Ventral Diencephalon", "Claustrum"],
+    "Cerebellum":        ["Cerebellum WM", "Cerebellum Cortex"],
+    "Brainstem / Other": ["Brain Stem", "Lateral Ventricle", "CSF", "Cornea"],
 }
 group_colors = {
     "Cortical":          "#2166AC",

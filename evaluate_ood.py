@@ -28,25 +28,25 @@ from predict_ensemble import find_fold_ckpts
 
 # Tissue segmentation: contiguous label id → name
 LABEL_NAMES = [
-    "Background",                   # 0
-    "Cerebral WM (L)",              # 1  → FS 2
-    "Cerebral Cortex (L)",          # 2  → FS 3
-    "Lateral Ventricle (L)",        # 3  → FS 4
-    "Cerebellum WM (L)",            # 4  → FS 7
-    "Cerebellum Cortex (L)",        # 5  → FS 8
-    "Thalamus Proper (L)",          # 6  → FS 10
-    "Caudate (L)",                  # 7  → FS 11
-    "Putamen (L)",                  # 8  → FS 12
-    "Pallidum (L)",                 # 9  → FS 13
-    "Brain Stem",                   # 10 → FS 16
-    "Hippocampus (L)",              # 11 → FS 17
-    "Amygdala (L)",                 # 12 → FS 18
-    "CSF",                          # 13 → FS 24
-    "Accumbens Area (L)",           # 14 → FS 26
-    "Substantia Nigra (L)",         # 15 → FS 27
-    "Ventral Diencephalon (L)",     # 16 → FS 28
-    "Claustrum (L)",                # 17 → FS 138
-    "Cornea",                       # 18 → FS 140
+    "Background",               # 0
+    "Cerebral WM",              # 1  → FS 2
+    "Cerebral Cortex",          # 2  → FS 3
+    "Lateral Ventricle",        # 3  → FS 4
+    "Cerebellum WM",            # 4  → FS 7
+    "Cerebellum Cortex",        # 5  → FS 8
+    "Thalamus Proper",          # 6  → FS 10
+    "Caudate",                  # 7  → FS 11
+    "Putamen",                  # 8  → FS 12
+    "Pallidum",                 # 9  → FS 13
+    "Brain Stem",               # 10 → FS 16
+    "Hippocampus",              # 11 → FS 17
+    "Amygdala",                 # 12 → FS 18
+    "CSF",                      # 13 → FS 24
+    "Accumbens Area",           # 14 → FS 26
+    "Substantia Nigra",         # 15 → FS 27
+    "Ventral Diencephalon",     # 16 → FS 28
+    "Claustrum",                # 17 → FS 138
+    "Cornea",                   # 18 → FS 140
 ]
 
 NUM_CLASSES = 19
