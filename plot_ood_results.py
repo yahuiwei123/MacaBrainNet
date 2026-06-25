@@ -78,17 +78,17 @@ bar_colors = [group_colors[class_group[n]] for n in names_sorted]
 plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["DejaVu Serif", "Times New Roman", "serif"],
-    "font.size": 9,
-    "axes.titlesize": 10,
-    "axes.labelsize": 9,
-    "legend.fontsize": 7,
-    "xtick.labelsize": 7,
-    "ytick.labelsize": 7.5,
+    "font.size": 10,
+    "axes.titlesize": 11,
+    "axes.labelsize": 10,
+    "legend.fontsize": 8,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 9,
     "figure.dpi": 300,
     "savefig.dpi": 400,
 })
 
-fig = plt.figure(figsize=(13, 5.8))
+fig = plt.figure(figsize=(14, 6.2))
 
 # Use GridSpec for manual layout control — left=0.13 ensures y-tick labels are not clipped
 gs = fig.add_gridspec(1, 2, left=0.13, right=0.97, top=0.89, bottom=0.12,
@@ -99,8 +99,8 @@ ax_hd   = fig.add_subplot(gs[0, 1])
 
 bar_height = 0.6
 jitter_scale = 0.08  # vertical jitter for dots
-dot_size = 4.5
-dot_alpha = 0.45
+dot_size = 5.5
+dot_alpha = 0.40
 
 # ═══════════════════════════════════════════
 # Panel A: Dice Score
@@ -126,23 +126,23 @@ ax_dice.barh(y_pos, dice_mean_sorted, xerr=dice_std_sorted,
 overall_dice = data["overall_dice_mean"]
 ax_dice.axvline(overall_dice, color="0.15", linestyle=(0, (4, 2.5)), linewidth=1.0, alpha=0.8)
 ax_dice.text(overall_dice + 0.003, n - 0.25, f"Mean = {overall_dice:.3f}",
-             fontsize=7.5, color="0.15", va="bottom", style="italic",
+             fontsize=9, color="0.15", va="bottom", style="italic",
              bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.75))
 
 # Value labels
 for i in range(n):
     ax_dice.text(dice_mean_sorted[i] + dice_std_sorted[i] + 0.006, y_pos[i],
                  f"{dice_mean_sorted[i]:.3f}",
-                 va="center", fontsize=5.8, color="0.2", zorder=5)
+                 va="center", fontsize=7, color="0.2", zorder=5)
 
 ax_dice.set_yticks(y_pos)
-ax_dice.set_yticklabels(names_sorted, fontsize=8)
-ax_dice.set_xlabel("Dice Score", fontsize=9)
-ax_dice.set_title("A   Per-class Dice Score", loc="left", fontsize=10, fontweight="bold")
+ax_dice.set_yticklabels(names_sorted, fontsize=9)
+ax_dice.set_xlabel("Dice Score", fontsize=10)
+ax_dice.set_title("A   Per-class Dice Score", loc="left", fontsize=11, fontweight="bold")
 ax_dice.set_xlim(0.70, 0.975)
 ax_dice.xaxis.set_major_locator(MultipleLocator(0.05))
 ax_dice.xaxis.set_minor_locator(MultipleLocator(0.01))
-ax_dice.tick_params(axis="x", labelsize=7.5)
+ax_dice.tick_params(axis="x", labelsize=8.5)
 ax_dice.grid(axis="x", alpha=0.2, linewidth=0.4)
 ax_dice.set_axisbelow(True)
 ax_dice.invert_yaxis()
@@ -151,8 +151,8 @@ ax_dice.set_ylim(n - 0.55, -0.35)
 # Legend
 legend_patches = [mpatches.Patch(color=c, label=g) for g, c in group_colors.items()]
 leg = ax_dice.legend(handles=legend_patches, loc="lower right", framealpha=0.85,
-                     edgecolor="0.7", fontsize=6.5, ncol=2,
-                     title="Anatomical group", title_fontsize=6.5)
+                     edgecolor="0.7", fontsize=7.5, ncol=2,
+                     title="Anatomical group", title_fontsize=7.5)
 leg.set_zorder(10)
 
 # ═══════════════════════════════════════════
@@ -177,22 +177,22 @@ ax_hd.barh(y_pos, hd95_mean_sorted, xerr=hd95_std_sorted,
 overall_hd = data["overall_hd95_mean"]
 ax_hd.axvline(overall_hd, color="0.15", linestyle=(0, (4, 2.5)), linewidth=1.0, alpha=0.8)
 ax_hd.text(overall_hd + 0.015, n - 0.25, f"Mean = {overall_hd:.2f} mm",
-           fontsize=7.5, color="0.15", va="bottom", style="italic",
+           fontsize=9, color="0.15", va="bottom", style="italic",
            bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.75))
 
 for i in range(n):
     ax_hd.text(hd95_mean_sorted[i] + hd95_std_sorted[i] + 0.03, y_pos[i],
                f"{hd95_mean_sorted[i]:.2f}",
-               va="center", fontsize=5.8, color="0.2", zorder=5)
+               va="center", fontsize=7, color="0.2", zorder=5)
 
 ax_hd.set_yticks(y_pos)
-ax_hd.set_yticklabels(names_sorted, fontsize=8)
-ax_hd.set_xlabel("Hausdorff95 Distance (mm)", fontsize=9)
-ax_hd.set_title("B   Per-class Hausdorff95 Distance", loc="left", fontsize=10, fontweight="bold")
+ax_hd.set_yticklabels(names_sorted, fontsize=9)
+ax_hd.set_xlabel("Hausdorff95 Distance (mm)", fontsize=10)
+ax_hd.set_title("B   Per-class Hausdorff95 Distance", loc="left", fontsize=11, fontweight="bold")
 ax_hd.set_xlim(0.0, max(hd95_mean_sorted) * 1.28)
 ax_hd.xaxis.set_major_locator(MultipleLocator(0.2))
 ax_hd.xaxis.set_minor_locator(MultipleLocator(0.05))
-ax_hd.tick_params(axis="x", labelsize=7.5)
+ax_hd.tick_params(axis="x", labelsize=8.5)
 ax_hd.grid(axis="x", alpha=0.2, linewidth=0.4)
 ax_hd.set_axisbelow(True)
 ax_hd.invert_yaxis()
@@ -200,14 +200,14 @@ ax_hd.set_ylim(n - 0.55, -0.35)
 
 # ── Global title ──
 fig.suptitle("OOD Generalization Performance — 5-fold SwinUNETR Ensemble (32 scans, 4 held-out sites)",
-             fontsize=11, fontweight="bold", y=0.975)
+             fontsize=12, fontweight="bold", y=0.975)
 
 # ── Footer ──
 fig.text(0.5, 0.02,
          "OOD sites: ds001875 (n=9), ds003989 (n=13), ds004620 (n=8), ds005521 (n=2)  |  "
          "0.4 mm isotropic  |  T1w brain-extracted  |  "
          "Per-sample dots shown behind bars (± jitter)",
-         ha="center", fontsize=6.5, color="0.4", style="italic")
+         ha="center", fontsize=7.5, color="0.4", style="italic")
 
 fig.savefig("ood_results_figure.png", dpi=400, facecolor="white", edgecolor="none")
 fig.savefig("ood_results_figure.pdf", facecolor="white", edgecolor="none")
