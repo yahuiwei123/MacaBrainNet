@@ -248,6 +248,50 @@ FOLD=1                           \
 bash train_skullstrip.sh
 ```
 
+## OOD Generalization Evaluation
+
+We evaluated the 5-fold ensemble model on an out-of-distribution (OOD) test set of **32 scans from 4 held-out OpenNeuro datasets** that were completely excluded from training:
+
+| OOD Site | Samples | Description |
+|---|---|---|
+| ds001875 | 9 | Macaque anatomical MRI |
+| ds003989 | 13 | Multi-run macaque MRI (3 subjects) |
+| ds004620 | 8 | Macaque neuroimaging study |
+| ds005521 | 2 | Macaque MRI dataset |
+
+All OOD scans were preprocessed identically (RAS reorientation, 0.4 mm isotropic resampling, brain extraction) and segmented with the 5-fold softmax-averaging ensemble.
+
+### Results
+
+![OOD Results](src/ood_results_figure.png)
+
+**Overall performance: mean Dice = 0.862, mean HD95 = 0.59 mm.**
+
+| Structure | Dice | HD95 (mm) |
+|---|---|---|
+| Hippocampus (L) | 0.932 | 0.58 |
+| Cerebral Cortex (L) | 0.929 | 0.40 |
+| Cerebral WM (L) | 0.922 | 0.41 |
+| Putamen (L) | 0.917 | 0.52 |
+| Thalamus Proper (L) | 0.915 | 0.57 |
+| Accumbens Area (L) | 0.906 | 0.55 |
+| Pallidum (L) | 0.889 | 0.54 |
+| Caudate (L) | 0.886 | 0.56 |
+| Amygdala (L) | 0.879 | 0.62 |
+| Substantia Nigra (L) | 0.870 | 0.48 |
+| Brain Stem | 0.863 | 0.51 |
+| CSF | 0.849 | 0.54 |
+| Cornea | 0.845 | 0.54 |
+| Cerebellum Cortex (L) | 0.822 | 0.80 |
+| Ventral Diencephalon (L) | 0.792 | 0.62 |
+| Claustrum (L) | 0.785 | 0.50 |
+| Cerebellum WM (L) | 0.761 | 1.25 |
+| Lateral Ventricle (L) | 0.755 | 0.60 |
+
+Cortical gray/white matter and large subcortical structures achieve Dice > 0.90. Performance is lower for small or thin structures such as Lateral Ventricle, Cerebellum WM, Claustrum, and Ventral Diencephalon, consistent with their anatomical complexity and partial volume effects.
+
+> **Evaluation script**: `evaluate_ood.py` — computes per-class Dice and Hausdorff95 for any JSON-specified dataset using the 5-fold ensemble. Results saved to `ood_results.json`.
+
 ## Project Structure
 
 ```
