@@ -248,6 +248,34 @@ FOLD=1                           \
 bash train_skullstrip.sh
 ```
 
+## 5-Fold Cross-Validation Results
+
+Per-class validation Dice scores (mean ± std across 5 folds) from the tissue segmentation model trained with 5-fold cross-validation on 2,157 scans.
+
+| Structure | Dice (mean ± std) | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 |
+|---|---|---|---|---|---|---|
+| Brain Stem | 0.9228 ± 0.0019 | 0.9232 | 0.9203 | 0.9211 | 0.9254 | 0.9239 |
+| Putamen | 0.9043 ± 0.0013 | 0.9054 | 0.9029 | 0.9042 | 0.9062 | 0.9031 |
+| Thalamus Proper | 0.9032 ± 0.0011 | 0.9035 | 0.9011 | 0.9043 | 0.9039 | 0.9030 |
+| Cerebral WM | 0.8960 ± 0.0019 | 0.8988 | 0.8947 | 0.8962 | 0.8970 | 0.8933 |
+| Amygdala | 0.8891 ± 0.0013 | 0.8887 | 0.8871 | 0.8887 | 0.8901 | 0.8910 |
+| Cerebral Cortex | 0.8870 ± 0.0023 | 0.8913 | 0.8869 | 0.8868 | 0.8847 | 0.8852 |
+| Pallidum | 0.8722 ± 0.0025 | 0.8727 | 0.8690 | 0.8719 | 0.8766 | 0.8709 |
+| Caudate | 0.8682 ± 0.0037 | 0.8686 | 0.8628 | 0.8685 | 0.8744 | 0.8670 |
+| Hippocampus | 0.8570 ± 0.0037 | 0.8595 | 0.8522 | 0.8547 | 0.8627 | 0.8560 |
+| Substantia Nigra | 0.8538 ± 0.0011 | 0.8544 | 0.8523 | 0.8541 | 0.8554 | 0.8527 |
+| Accumbens Area | 0.8497 ± 0.0020 | 0.8472 | 0.8488 | 0.8491 | 0.8532 | 0.8501 |
+| Ventral Diencephalon | 0.8312 ± 0.0029 | 0.8306 | 0.8275 | 0.8318 | 0.8364 | 0.8299 |
+| Cornea | 0.8283 ± 0.0042 | 0.8302 | 0.8207 | 0.8291 | 0.8334 | 0.8281 |
+| Cerebellum Cortex | 0.8279 ± 0.0037 | 0.8283 | 0.8249 | 0.8257 | 0.8350 | 0.8254 |
+| Claustrum | 0.7463 ± 0.0027 | 0.7490 | 0.7421 | 0.7496 | 0.7451 | 0.7458 |
+| CSF | 0.7418 ± 0.0029 | 0.7459 | 0.7411 | 0.7425 | 0.7425 | 0.7368 |
+| Cerebellum WM | 0.7340 ± 0.0071 | 0.7330 | 0.7404 | 0.7293 | 0.7433 | 0.7241 |
+| Lateral Ventricle | 0.7172 ± 0.0025 | 0.7141 | 0.7189 | 0.7180 | 0.7206 | 0.7145 |
+| **Overall** | **0.8404 ± 0.0020** | **0.8413** | **0.8380** | **0.8401** | **0.8437** | **0.8389** |
+
+> Overall Dice includes background class. Sorted by mean Dice descending (excluding background). Consistent performance across folds (std ≤ 0.007) demonstrates stable training.
+
 ## OOD Generalization Evaluation
 
 We evaluated the 5-fold ensemble model on an out-of-distribution (OOD) test set of **32 scans from 4 held-out OpenNeuro datasets** that were completely excluded from training:
