@@ -88,10 +88,10 @@ plt.rcParams.update({
     "savefig.dpi": 400,
 })
 
-fig = plt.figure(figsize=(12, 5.8))
+fig = plt.figure(figsize=(13, 5.8))
 
-# Use GridSpec for manual layout control
-gs = fig.add_gridspec(1, 2, left=0.08, right=0.97, top=0.89, bottom=0.12,
+# Use GridSpec for manual layout control — left=0.13 ensures y-tick labels are not clipped
+gs = fig.add_gridspec(1, 2, left=0.13, right=0.97, top=0.89, bottom=0.12,
                        wspace=0.42)
 
 ax_dice = fig.add_subplot(gs[0, 0])
